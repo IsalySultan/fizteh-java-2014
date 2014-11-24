@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import ru.fizteh.fivt.students.IsalySultan.JUnit.MyTableProviderFactory;
+import ru.fizteh.fivt.students.isalysultan.JUnit.MyTableProviderFactory;
 
 import static org.junit.Assert.assertEquals;
 
