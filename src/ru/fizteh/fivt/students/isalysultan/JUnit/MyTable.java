@@ -192,7 +192,7 @@ public class MyTable {
         --numberRecords;
     }
 
-    public String Put(String key, String value) throws IOException, IllegalArgumentException {
+    public String put(String key, String value) throws IOException, IllegalArgumentException {
         if (key == null || value == null) {
             throw new IllegalArgumentException("uncorrect arguments");
         }
@@ -217,7 +217,7 @@ public class MyTable {
         return result;
     }
 
-    public String GetKey(String key) throws UnsupportedEncodingException, IllegalArgumentException {
+    public String getKey(String key) throws UnsupportedEncodingException, IllegalArgumentException {
         if (key == null) {
             throw new IllegalArgumentException("uncorrect arguments");
         }
@@ -233,7 +233,7 @@ public class MyTable {
         return oldkey;
     }
 
-    public String Remove(String key)
+    public String remove(String key)
             throws UnsupportedEncodingException, IllegalArgumentException {
         if (key == null) {
             throw new IllegalArgumentException("uncorrect arguments");
