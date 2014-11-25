@@ -1,4 +1,4 @@
-package ru.fizteh.fivt.students.isalysultan.JUnit.test;
+ package ru.fizteh.fivt.students.isalysultan.JUnit.test;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -51,7 +51,7 @@ public class MyTableProviderTest {
     }
 
     @Test
-    public void RemoveTable() throws IOException {
+    public void removeTable() throws IOException {
         assertNotNull(direct.createTable("Table"));
         assertNotNull(direct.getTable("Table"));
         direct.removeTable("Table");
