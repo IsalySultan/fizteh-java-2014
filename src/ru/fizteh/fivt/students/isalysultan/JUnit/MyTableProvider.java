@@ -95,7 +95,7 @@ public class MyTableProvider {
 
     public String executePut(String key, String value) throws IOException {
         if (currentTable != null) {
-            String result = currentTable.Put(key, value);
+            String result = currentTable.put(key, value);
             return result;
         }
         System.out.println("no table");
@@ -104,7 +104,7 @@ public class MyTableProvider {
 
     public String executeGet(String key) throws UnsupportedEncodingException {
         if (currentTable != null) {
-            String find = currentTable.GetKey(key);
+            String find = currentTable.getKey(key);
             return find;
         }
         System.out.println("no table");
@@ -113,7 +113,7 @@ public class MyTableProvider {
 
     public String executeRemove(String key) throws UnsupportedEncodingException {
         if (currentTable != null) {
-            String find = currentTable.Remove(key);
+            String find = currentTable.remove(key);
             return find;
         }
         System.out.println("no table");
