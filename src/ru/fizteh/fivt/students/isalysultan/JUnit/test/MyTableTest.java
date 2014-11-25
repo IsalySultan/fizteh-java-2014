@@ -36,74 +36,74 @@ public class MyTableTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void putNull() throws IOException {
-        table.Put(null, null);
+        table.put(null, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void getNull() throws UnsupportedEncodingException {
-        table.GetKey(null);
+        table.getKey(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void removeNull() throws UnsupportedEncodingException {
-        table.Remove(null);
+        table.remove(null);
     }
 
     @Test
     public void testPutAndGet() throws IOException {
-        assertNull(table.Put("1", "7"));
-        assertEquals("7", table.GetKey("1"));
-        assertEquals("7", table.Put("1", "3"));
-        assertEquals("3", table.GetKey("1"));
-        assertNull(table.GetKey("c"));
+        assertNull(table.put("1", "7"));
+        assertEquals("7", table.getKey("1"));
+        assertEquals("7", table.put("1", "3"));
+        assertEquals("3", table.getKey("1"));
+        assertNull(table.getKey("c"));
     }
 
     @Test
     public void testPutAndRemove() throws IOException {
-        assertNull(table.Put("1", "2"));
-        assertNull(table.Remove("2"));
-        assertEquals("2", table.Remove("1"));
-        assertNull(table.Remove("1"));
-        assertNull(table.GetKey("1"));
+        assertNull(table.put("1", "2"));
+        assertNull(table.remove("2"));
+        assertEquals("2", table.remove("1"));
+        assertNull(table.remove("1"));
+        assertNull(table.getKey("1"));
     }
 
     @Test
     public void testSize() throws IOException {
         assertEquals(0, table.size());
-        table.Put("1", "2");
+        table.put("1", "2");
         assertEquals(1, table.size());
-        table.Put("3", "4");
+        table.put("3", "4");
         assertEquals(2, table.size());
-        table.Put("3", "5");
+        table.put("3", "5");
         assertEquals(2, table.size());
-        table.Remove("1");
+        table.remove("1");
         assertEquals(1, table.size());
-        table.Remove("1");
+        table.remove("1");
         assertEquals(1, table.size());
-        table.Remove("3");
+        table.remove("3");
         assertEquals(0, table.size());
     }
 
     @Test
     public void testList() throws IOException {
         assertEquals(0, table.tableOperationList().size());
-        table.Put("1", "2");
-        table.Put("3", "4");
-        table.Put("3", "5");
-        table.Remove("1");
-        table.Put("6", "7");
-        table.Put("key", "value");
+        table.put("1", "2");
+        table.put("3", "4");
+        table.put("3", "5");
+        table.remove("1");
+        table.put("6", "7");
+        table.put("key", "value");
         assertEquals(3, table.tableOperationList().size());
     }
 
     @Test
     public void testRollBack() throws IOException {
         assertEquals(0, table.rollback());
-        table.Put("1", "2");
-        table.Put("2", "3");
-        table.Put("3", "4");
-        table.Remove("1");
-        table.Put("1", "5");
+        table.put("1", "2");
+        table.put("2", "3");
+        table.put("3", "4");
+        table.remove("1");
+        table.put("1", "5");
         assertEquals(3, table.size());
         assertEquals(3, table.commit());
         assertEquals(3, table.rollback());
@@ -113,10 +113,10 @@ public class MyTableTest {
     @Test
     public void testCommit() throws IOException {
         assertEquals(0, table.commit());
-        table.Put("1", "2");
-        table.Put("2", "3");
-        table.Put("3", "4");
-        table.Remove("3");
+        table.put("1", "2");
+        table.put("2", "3");
+        table.put("3", "4");
+        table.remove("3");
         assertEquals(2, table.commit());
         assertEquals(2, table.size());
     }
