@@ -256,7 +256,7 @@ public class MyTable {
         for (int i = 0; i < fileNumber; ++i) {
             for (int j = 0; j < fileNumber; ++j) {
                 if (files[i][j] != null) {
-                    Set<String> setKey = СommandList.list(files[i][j]);
+                    Set<String> setKey = CommandList.list(files[i][j]);
                     for (String key : setKey) {
                         listKey.add(key);
                     }
