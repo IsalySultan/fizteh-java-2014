@@ -1,4 +1,4 @@
-package ru.fizteh.fivt.students.IsalySultan.Storeable;
+package ru.fizteh.fivt.students.isalysultan.Storeable;
 
 import ru.fizteh.fivt.storage.structured.ColumnFormatException;
 import ru.fizteh.fivt.storage.structured.Storeable;
