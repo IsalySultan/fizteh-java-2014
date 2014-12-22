@@ -1,12 +1,12 @@
-package ru.fizteh.fivt.students.IsalySultan.JUnit.test;
+package ru.fizteh.fivt.students.isalysultan.JUnit.test;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import ru.fizteh.fivt.students.IsalySultan.JUnit.Exception.WrongArgumentException;
-import ru.fizteh.fivt.students.IsalySultan.JUnit.MyTableProvider;
-import ru.fizteh.fivt.students.IsalySultan.JUnit.MyTableProviderFactory;
+import ru.fizteh.fivt.students.isalysultan.JUnit.Exception.WrongArgumentException;
+import ru.fizteh.fivt.students.isalysultan.JUnit.MyTableProvider;
+import ru.fizteh.fivt.students.isalysultan.JUnit.MyTableProviderFactory;
 
 import java.io.IOException;
 
