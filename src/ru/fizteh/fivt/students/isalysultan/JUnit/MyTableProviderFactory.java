@@ -1,7 +1,7 @@
 package ru.fizteh.fivt.students.isalysultan.JUnit;
 
 import ru.fizteh.fivt.storage.strings.TableProviderFactory;
-import ru.fizteh.fivt.students.IsalySultan.JUnit.Exception.PathException;
+import ru.fizteh.fivt.students.isalysultan.JUnit.Exception.PathException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
