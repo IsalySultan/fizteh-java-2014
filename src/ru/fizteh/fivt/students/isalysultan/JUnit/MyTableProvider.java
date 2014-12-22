@@ -1,8 +1,8 @@
 package ru.fizteh.fivt.students.isalysultan.JUnit;
 
 import ru.fizteh.fivt.storage.strings.TableProvider;
-import ru.fizteh.fivt.students.IsalySultan.JUnit.Exception.ReadOrWriteException;
-import ru.fizteh.fivt.students.IsalySultan.JUnit.Exception.WrongArgumentException;
+import ru.fizteh.fivt.students.isalysultan.JUnit.Exception.ReadOrWriteException;
+import ru.fizteh.fivt.students.isalysultan.JUnit.Exception.WrongArgumentException;
 
 import java.io.IOException;
 import java.nio.file.Path;
