@@ -1,6 +1,6 @@
-package ru.fizteh.fivt.students.IsalySultan.JUnit;
+package ru.fizteh.fivt.students.isalysultan.JUnit;
 
-import ru.fizteh.fivt.students.IsalySultan.JUnit.Commands.*;
+import ru.fizteh.fivt.students.isalysultan.JUnit.Commands.*;
 
 import java.util.HashMap;
 import java.util.Map;
