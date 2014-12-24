@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class Interpreter {
     public Map<String, Command> commands;
-    private Command command;
 
     private final String PROMPT = "$ ";
     private final String EMPTY = " ";
