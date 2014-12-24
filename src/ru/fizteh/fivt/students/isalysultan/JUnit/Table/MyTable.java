@@ -9,8 +9,8 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
 import java.util.*;
 
-public class MyTable implements Table {
 
+public class MyTable implements Table {
     private String nameTable;
 
     private Path tableDirectory;
@@ -20,6 +20,10 @@ public class MyTable implements Table {
     private int currentChanges;
 
     private int commitChanges;
+
+    private int difference;
+
+    private int uncommitChanges;
 
     private File[][] commitFiles = new File[FILE_NUMBER][FILE_NUMBER];
 
@@ -31,15 +35,19 @@ public class MyTable implements Table {
 
     private final String FORMAT = "UTF-8";
 
-    private final String DIR = "dir";
+    private final String DIR_FILE_SUFFIX = "dir";
 
-    private final String DAT = "dat";
+    private final String DATA_FILE_SUFFIX = "dat";
 
     private final String REGULAR_DIR = "([0-9]|1[0-5])\\.dir";
 
     private final String REGULAR_DAT = "([0-9]|1[0-5])\\.dat";
 
     private final Integer SPACE = 4;
+
+    private final String POINT = ".";
+
+    private final String COMMA = ", ";
 
     @Override
     public String getName() {
@@ -48,10 +56,6 @@ public class MyTable implements Table {
 
     public int getCurrentChanges() {
         return currentChanges;
-    }
-
-    public int getCommitChanges() {
-        return commitChanges;
     }
 
     public File[][] getFiles() {
@@ -101,10 +105,6 @@ public class MyTable implements Table {
 
     public void incrementChanges() {
         ++currentChanges;
-    }
-
-    public void decrementChanges() {
-        --currentChanges;
     }
 
     public void read() throws IllegalArgumentException {
@@ -234,15 +234,17 @@ public class MyTable implements Table {
             }
         }
         File currTable = files[ndirectory][nfile];
-        Path file = tableDirectory.resolve(Integer.toString(ndirectory) + "."
-                + DIR);
-        file = file.resolve(Integer.toString(ndirectory) + "." + DAT);
+        Path file = tableDirectory.resolve(Integer.toString(ndirectory) + POINT
+                + DIR_FILE_SUFFIX);
+        file = file.resolve(Integer.toString(ndirectory) + POINT + DATA_FILE_SUFFIX);
         currTable.setPath(file);
         if (!currTable.containsKey(key)) {
             incrementNumberRecords();
             incrementChanges();
         }
         String result = currTable.putMap(key, value);
+        ++uncommitChanges;
+        ++difference;
         if (result == null) {
             return result;
         }
@@ -290,9 +292,11 @@ public class MyTable implements Table {
         }
         String result = currTable.removeMap(key);
         if (result != null) {
-            decrementChanges();
+            incrementChanges();
             dicrementNumberRecords();
         }
+        --difference;
+        ++uncommitChanges;
         return result;
     }
 
@@ -304,7 +308,7 @@ public class MyTable implements Table {
             for (int j = 0; j < FILE_NUMBER; ++j) {
                 if (files[i][j] != null) {
                     Set<String> setKey = files[i][j].keySetMap();
-                    String answer = String.join(", ", setKey);
+                    String answer = String.join(COMMA, setKey);
                     for (String key : setKey) {
                         listKey.add(key);
                     }
@@ -323,20 +327,25 @@ public class MyTable implements Table {
     public int commit() {
         int result = getCurrentChanges();
         saveTable();
+        difference = 0;
+        uncommitChanges = 0;
         return result;
     }
 
     @Override
     public int rollback() {
-        int result = getCommitChanges();
+        int result = uncommitChanges;
         filesRollback();
+        numberRecords = numberRecords - difference;
+        difference = 0;
+        uncommitChanges = 0;
         return result;
     }
 
     public void write() throws IOException {
         for (int i = 0; i < FILE_NUMBER; ++i) {
             Path subDirect = tableDirectory;
-            subDirect = subDirect.resolve((Integer.toString(i) + "." + DIR));
+            subDirect = subDirect.resolve((Integer.toString(i) + POINT + DIR_FILE_SUFFIX));
             boolean directExist = false;
             for (int j = 0; j < FILE_NUMBER; ++j) {
                 if (files[i][j] == null) {
@@ -357,13 +366,13 @@ public class MyTable implements Table {
                         subDirectsMap.put(i, subDirect);
                         directExist = true;
                         Path filePath = subDirect.resolve((Integer.toString(j)
-                                + "." + DAT));
+                                + POINT + DATA_FILE_SUFFIX));
                         files[i][j].setPath(filePath);
                         filePath.toFile().createNewFile();
                         files[i][j].writeFile();
                     } else {
                         Path filePath = subDirectsMap.get(i).resolve(
-                                (Integer.toString(j) + "." + DAT));
+                                (Integer.toString(j) + POINT + DATA_FILE_SUFFIX));
                         files[i][j].setPath(filePath);
                         filePath.toFile().createNewFile();
                         files[i][j].writeFile();
