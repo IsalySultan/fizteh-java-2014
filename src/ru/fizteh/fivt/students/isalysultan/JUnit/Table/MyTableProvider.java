@@ -64,12 +64,6 @@ public class MyTableProvider implements TableProvider {
         return false;
     }
 
-    public void executeExit() throws IOException {
-        if (currentTable != null) {
-            currentTable.write();
-        }
-    }
-
     public void setCurrentTable(MyTable newCurrentTable) {
         currentTable = newCurrentTable;
     }
@@ -90,8 +84,7 @@ public class MyTableProvider implements TableProvider {
         setCurrentTable(newCurrTable);
         newCurrTable.read();
     }
-
-
+    
     @Override
     public void removeTable(String tableName) throws IllegalArgumentException, IllegalStateException {
         if (tableName == null) {
