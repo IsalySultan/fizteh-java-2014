@@ -1,7 +1,7 @@
 package ru.fizteh.fivt.students.isalysultan.JUnit.Exception;
 
-public class OffsetException extends IllegalArgumentException {
-    public OffsetException() {
-        super("Error with offset");
+public class CreateFileException extends RuntimeException {
+    public CreateFileException() {
+        super("Error for create file.");
     }
 }
