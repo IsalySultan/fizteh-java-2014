@@ -34,10 +34,6 @@ public class File {
         return storage.containsKey(key);
     }
 
-    public boolean containsValue(String value) {
-        return storage.containsValue(value);
-    }
-
     public String putMap(String key, String value) {
         return storage.put(key, value);
     }
@@ -56,17 +52,6 @@ public class File {
 
     public Path getPath() {
         return filePath;
-    }
-
-    public boolean emptyMap() {
-        if (storage.isEmpty()) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean getOpenRead() {
-        return openRead;
     }
 
     public File() throws IOException {
@@ -90,18 +75,18 @@ public class File {
         ArrayList<String> key = new ArrayList<String>();
         ArrayList<Integer> offset = new ArrayList<Integer>();
         int count = 0;
-        int camelCase = -1;
+        int byteReadIndicator = -1;
         byte part;
         boolean dontReadFirstOffset = false;
-        while (count < camelCase || !dontReadFirstOffset) {
+        while (count < byteReadIndicator || !dontReadFirstOffset) {
             while ((part = file.readByte()) != 0) {
                 ++count;
                 buff.write(part);
             }
             ++count;
-            if (camelCase == -1) {
-                camelCase = file.readInt();
-                offset.add(camelCase);
+            if (byteReadIndicator == -1) {
+                byteReadIndicator = file.readInt();
+                offset.add(byteReadIndicator);
                 dontReadFirstOffset = true;
             } else {
                 offset.add(file.readInt());
