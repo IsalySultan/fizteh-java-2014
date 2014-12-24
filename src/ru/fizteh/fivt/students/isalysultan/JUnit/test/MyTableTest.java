@@ -4,9 +4,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import ru.fizteh.fivt.students.isalysultan.JUnit.MyTable;
-import ru.fizteh.fivt.students.isalysultan.JUnit.MyTableProvider;
-import ru.fizteh.fivt.students.isalysultan.JUnit.MyTableProviderFactory;
+import ru.fizteh.fivt.students.IsalySultan.JUnit.Table.MyTable;
+import ru.fizteh.fivt.students.IsalySultan.JUnit.Table.MyTableProvider;
+import ru.fizteh.fivt.students.IsalySultan.JUnit.Table.MyTableProviderFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -105,8 +105,8 @@ public class MyTableTest {
         table.remove("1");
         table.put("1", "5");
         assertEquals(3, table.size());
-        assertEquals(3, table.commit());
-        assertEquals(3, table.rollback());
+        assertEquals(5, table.commit());
+        assertEquals(0, table.rollback());
         assertEquals(3, table.size());
     }
 
@@ -117,8 +117,36 @@ public class MyTableTest {
         table.put("2", "3");
         table.put("3", "4");
         table.remove("3");
+        assertEquals(4, table.commit());
+        assertEquals(2, table.size());
+    }
+
+    @Test
+    public void testCommitAndRallback() throws IOException {
+        assertEquals(0, table.commit());
+        table.put("1", "2");
+        table.put("2", "3");
         assertEquals(2, table.commit());
+        assertEquals(0, table.commit());
+        table.put("4", "5");
+        assertEquals("5", table.get("4"));
+        assertEquals(1, table.rollback());
+        assertNull(table.get("4"));
+        assertEquals("3", table.get("2"));
+        assertEquals(0, table.rollback());
+        assertEquals(2, table.size());
+        table.put("6", "7");
+        table.remove("1");
+        assertEquals(2, table.commit());
+        assertEquals(2, table.size());
+        table.put("1", "2");
+        table.put("8", "9");
+        table.remove("6");
+        assertEquals(3, table.size());
+        assertEquals(3, table.rollback());
         assertEquals(2, table.size());
     }
 
 }
+
+ 
